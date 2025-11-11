@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "19958505765",
+    "project_id": "golpo-898fa",
+    "storage_bucket": "golpo-898fa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19958505765:android:7db610f3e9845614497acc",
+        "android_client_info": {
+          "package_name": "com.example.golpo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO_7m-9MwuCX7exThY3lNl5yeALS_v9eU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
