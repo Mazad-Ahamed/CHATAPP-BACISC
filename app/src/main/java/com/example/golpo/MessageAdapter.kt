@@ -63,7 +63,8 @@ class MessageAdapter(private val messages: MutableList<Message>) :
     class ReceivedHolder(private val binding: ItemMessageReceivedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(m: Message) {
-            binding.tvReceiverMessage.text = "${m.reciverId}: ${m.text}"
+            binding.tvReceiverMessage.text = " ${m.text}"
+           // binding.receiverBubble.text =  " ${m.reciverId}"
         }
     }
 }

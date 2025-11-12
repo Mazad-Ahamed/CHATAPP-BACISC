@@ -18,6 +18,14 @@ class SignInActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // ✅ Check if user is already logged in
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // User already logged in → skip sign in screen
+            startActivity(Intent(this, ChatScreenActivity::class.java))
+            finish()
+            return
+        }
 
         binding.btnGoToSignUp.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))

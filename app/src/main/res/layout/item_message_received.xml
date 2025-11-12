@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_receiver_message"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,44 +11,64 @@
     android:paddingBottom="4dp"
     android:gravity="start">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <!-- Inner layout changed to ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/receiver_bubble"
+        android:layout_width="250.dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_receiver_bubble"
-        android:orientation="vertical"
+
         android:padding="10dp"
         android:layout_gravity="start"
         android:elevation="2dp">
 
+        <!-- Sender Name -->
         <TextView
             android:id="@+id/sender"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Name"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textAlignment="textStart"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Receiver Message -->
+
+        <!-- Message Time -->
 
         <TextView
             android:id="@+id/tvReceiverMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hey! This is a receiver message."
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="2dp"
+            android:background="@drawable/bg_receiver_bubble"
+            android:text="Hey! This i"
+            android:padding="6dp"
+            android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:lineSpacingExtra="2dp"
-            android:layout_marginBottom="4dp" />
+            app:layout_constraintEnd_toEndOf="@+id/sender"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/sender"
+            app:layout_constraintTop_toBottomOf="@id/sender" />
 
         <TextView
             android:id="@+id/tvReceiverTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="176dp"
             android:text="12:46 PM"
-            android:textSize="12sp"
             android:textColor="#80000000"
-            android:gravity="end"
-            android:layout_gravity="end" />
-    </LinearLayout>
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvReceiverMessage"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Golpo">
         <activity
             android:name=".ChatScreenActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
