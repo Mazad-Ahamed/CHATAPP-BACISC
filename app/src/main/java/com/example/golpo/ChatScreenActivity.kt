@@ -35,12 +35,12 @@ class ChatScreenActivity : AppCompatActivity() {
             finish()
         }
         adapter = MessageAdapter(mutableListOf())
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerChat.layoutManager = LinearLayoutManager(this)
+        binding.recyclerChat.adapter = adapter
 
         // send message
-        binding.btnSend.setOnClickListener {
-            val text = binding.messageInput.text.toString().trim()
+        binding.send.setOnClickListener {
+            val text = binding.etMessage.text.toString().trim()
             val user = FirebaseAuth.getInstance().currentUser ?: return@setOnClickListener
 
             if (text.isEmpty()) return@setOnClickListener
@@ -56,7 +56,7 @@ class ChatScreenActivity : AppCompatActivity() {
 
             messagesRef.child(key).setValue(msg)
                 .addOnSuccessListener {
-                    binding.messageInput.setText("")
+                    binding.etMessage.setText("")
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed: ${it.message}", Toast.LENGTH_SHORT).show()
@@ -68,7 +68,7 @@ class ChatScreenActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, prev: String?) {
                 val message = snapshot.getValue(Message::class.java) ?: return
                 adapter.addMessage(message)
-                binding.recyclerView.scrollToPosition(adapter.itemCount - 1)
+                binding.recyclerChat.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, prev: String?) {}

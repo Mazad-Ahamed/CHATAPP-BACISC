@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.golpo.databinding.ItemMessageReceivedBinding
+import com.example.golpo.databinding.ItemMessageSentBinding
 import com.google.firebase.auth.FirebaseAuth
-
 class MessageAdapter(private val messages: MutableList<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -15,13 +16,19 @@ class MessageAdapter(private val messages: MutableList<Message>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_SENT) {
-            val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_message_sent, parent, false)
-            SentHolder(v)
+            val binding = ItemMessageSentBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+            SentHolder(binding)
         } else {
-            val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_message_received, parent, false)
-            ReceivedHolder(v)
+            val binding = ItemMessageReceivedBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+            ReceivedHolder(binding)
         }
     }
 
@@ -29,8 +36,10 @@ class MessageAdapter(private val messages: MutableList<Message>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val msg = messages[position]
-        if (holder is SentHolder) holder.bind(msg)
-        else if (holder is ReceivedHolder) holder.bind(msg)
+        when (holder) {
+            is SentHolder -> holder.bind(msg)
+            is ReceivedHolder -> holder.bind(msg)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -43,17 +52,18 @@ class MessageAdapter(private val messages: MutableList<Message>) :
         notifyItemInserted(messages.size - 1)
     }
 
-    class SentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val text: TextView = itemView.findViewById(R.id.textMessage)
+    class SentHolder(private val binding: ItemMessageSentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(m: Message) {
-            text.text = m.text
+            binding.tvSenderMessage.text = m.text
+            binding.sender.text = "${m.senderEmail}"
         }
     }
 
-    class ReceivedHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val text: TextView = itemView.findViewById(R.id.textMessage)
+    class ReceivedHolder(private val binding: ItemMessageReceivedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(m: Message) {
-            text.text = "${m.senderEmail}: ${m.text}"
+            binding.tvReceiverMessage.text = "${m.reciverId}: ${m.text}"
         }
     }
 }
